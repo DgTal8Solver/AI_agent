@@ -6,6 +6,13 @@ from typing import Dict, Any, Optional
 
 class BaseModel(ABC):
 
+    r"""
+    It's a Base class for polimorphism at :meth:`registry.ModelRegistry`.
+
+    BaseModel contains general methods for interacting with neural 
+    network models.
+    """
+
     def __init__(self, model_name: str) -> None:
         self._model_name = model_name
 
