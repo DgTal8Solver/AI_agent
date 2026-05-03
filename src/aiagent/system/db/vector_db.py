@@ -1,7 +1,6 @@
 import uuid
 import time
 import threading
-
 import chromadb
 
 class VectorDB:
@@ -10,6 +9,7 @@ class VectorDB:
         Инициализация и (опционально) загрузка сохранённой векторной базы.
         Если persist_path не указан, база будет работать только в оперативной памяти (временно).
         """
+
         # Блокировка для обеспечения потокобезопасности при конкурентных вызовах
         self._lock = threading.Lock()
         
@@ -26,6 +26,7 @@ class VectorDB:
 
     def add(self, text: str, metadata: dict = None) -> str:
         """Добавляет текст с метаданными, возвращает уникальный ID."""
+
         with self._lock:
             doc_id = str(uuid.uuid4())
             
@@ -58,6 +59,7 @@ class VectorDB:
             ...
         ]
         """
+
         with self._lock:
             # Запрашиваем похожие документы
             results = self._collection.query(
@@ -92,7 +94,9 @@ class VectorDB:
             return formatted_results
 
     def delete_by_id(self, id: str) -> bool:
+
         """Удаляет запись по ID. Возвращает True, если запись была удалена."""
+        
         with self._lock:
             # Проверяем, существует ли запись
             existing = self._collection.get(ids=[id])
